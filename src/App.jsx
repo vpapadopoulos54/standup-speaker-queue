@@ -48,6 +48,12 @@ function App() {
     }
   }
 
+  const updateMemberTag = (id, newTag) => {
+    setMembers(members.map(m =>
+      m.id === id ? { ...m, tag: newTag.trim() || 'untagged' } : m
+    ))
+  }
+
   const shuffle = () => {
     const remaining = queue.filter(id => !spoken.includes(id))
     const shuffled = [...remaining].sort(() => Math.random() - 0.5)
@@ -117,7 +123,7 @@ function App() {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           {/* Left Column: Input and Controls */}
           <div className="lg:col-span-1 space-y-6">
-            <TeamInput onAddMember={addMember} members={members} onRemoveMember={removeMember} />
+            <TeamInput onAddMember={addMember} members={members} onRemoveMember={removeMember} onUpdateTag={updateMemberTag} />
             <RandomPicker members={members} onSelectSpeaker={setCurrentSpeaker} />
             <Controls
               onShuffle={shuffle}

@@ -1,8 +1,10 @@
 import { useState } from 'react'
 
-function TeamInput({ onAddMember, members, onRemoveMember }) {
+function TeamInput({ onAddMember, members, onRemoveMember, onUpdateTag }) {
   const [name, setName] = useState('')
   const [tag, setTag] = useState('')
+  const [editingId, setEditingId] = useState(null)
+  const [editingTag, setEditingTag] = useState('')
 
   const handleAddMember = () => {
     onAddMember(name, tag)
@@ -13,6 +15,28 @@ function TeamInput({ onAddMember, members, onRemoveMember }) {
   const handleKeyPress = (e) => {
     if (e.key === 'Enter') {
       handleAddMember()
+    }
+  }
+
+  const startEditingTag = (member) => {
+    setEditingId(member.id)
+    setEditingTag(member.tag === 'untagged' ? '' : member.tag)
+  }
+
+  const saveTag = () => {
+    if (editingId !== null) {
+      onUpdateTag(editingId, editingTag)
+      setEditingId(null)
+      setEditingTag('')
+    }
+  }
+
+  const handleEditKeyPress = (e) => {
+    if (e.key === 'Enter') {
+      saveTag()
+    } else if (e.key === 'Escape') {
+      setEditingId(null)
+      setEditingTag('')
     }
   }
 
@@ -54,18 +78,52 @@ function TeamInput({ onAddMember, members, onRemoveMember }) {
             {members.map((member) => (
               <div
                 key={member.id}
-                className="flex items-center justify-between bg-gray-50 p-3 rounded-lg"
+                className="flex items-center justify-between bg-gray-50 p-3 rounded-lg group hover:bg-gray-100 transition"
               >
                 <div className="flex-1">
                   <p className="font-medium text-gray-800">{member.name}</p>
-                  <p className="text-xs text-gray-500">{member.tag}</p>
                 </div>
-                <button
-                  onClick={() => onRemoveMember(member.id)}
-                  className="ml-2 text-red-600 hover:text-red-800 text-sm font-semibold"
-                >
-                  ×
-                </button>
+
+                {editingId === member.id ? (
+                  <div className="flex items-center gap-2 ml-2">
+                    <input
+                      type="text"
+                      value={editingTag}
+                      onChange={(e) => setEditingTag(e.target.value)}
+                      onKeyPress={handleEditKeyPress}
+                      placeholder="Tag..."
+                      autoFocus
+                      className="px-2 py-1 text-sm border border-blue-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    />
+                    <button
+                      onClick={saveTag}
+                      className="text-green-600 hover:text-green-800 font-bold text-sm"
+                    >
+                      ✓
+                    </button>
+                    <button
+                      onClick={() => setEditingId(null)}
+                      className="text-gray-600 hover:text-gray-800 font-bold text-sm"
+                    >
+                      ✕
+                    </button>
+                  </div>
+                ) : (
+                  <>
+                    <button
+                      onClick={() => startEditingTag(member)}
+                      className="ml-2 px-2 py-1 text-xs bg-blue-100 text-blue-700 hover:bg-blue-200 rounded font-semibold transition opacity-0 group-hover:opacity-100"
+                    >
+                      {member.tag === 'untagged' ? 'Add Tag' : `Tag: ${member.tag}`}
+                    </button>
+                    <button
+                      onClick={() => onRemoveMember(member.id)}
+                      className="ml-2 text-red-600 hover:text-red-800 text-sm font-semibold"
+                    >
+                      ×
+                    </button>
+                  </>
+                )}
               </div>
             ))}
           </div>
