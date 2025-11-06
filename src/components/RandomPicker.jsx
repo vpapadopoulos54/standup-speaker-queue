@@ -29,30 +29,30 @@ function RandomPicker({ members, onSelectSpeaker }) {
 
   return (
     <div className="bg-white rounded-2xl shadow-md p-6 border border-slate-100">
-      <h2 className="text-lg font-semibold text-slate-900 mb-4">Pick Random Starter</h2>
+      <h2 className="text-lg font-semibold text-slate-900 mb-4">🎲 Random Starter</h2>
 
       {selectedMember ? (
-        <div className="bg-gradient-to-br from-blue-50 to-blue-100 rounded-xl p-6 mb-4 border border-blue-200">
-          <p className="text-blue-600 text-xs font-semibold uppercase tracking-wider mb-2">Selected</p>
-          <p className="text-3xl font-bold text-blue-900">{selectedMember.name}</p>
-          <p className="text-blue-600 text-sm mt-2 capitalize">{selectedMember.tag}</p>
+        <div className="bg-gradient-to-br from-violet-100 via-purple-100 to-pink-100 rounded-xl p-6 mb-4 border border-purple-200">
+          <p className="text-purple-600 text-xs font-semibold uppercase tracking-wider mb-2">Selected</p>
+          <p className="text-3xl font-bold text-purple-900">{selectedMember.name}</p>
+          <p className="text-purple-600 text-sm mt-2 capitalize font-medium">{selectedMember.tag}</p>
         </div>
       ) : (
-        <p className="text-slate-400 text-sm mb-4">Choose who starts the standup</p>
+        <p className="text-slate-400 text-sm mb-4">Roll the dice to pick a random starter</p>
       )}
 
       <button
         onClick={pickRandom}
         disabled={members.length === 0 || isRolling}
-        className={`w-full py-2.5 px-4 rounded-lg font-semibold text-sm transition transform ${
-          isRolling ? 'scale-105' : 'hover:scale-102'
+        className={`w-full py-3 px-4 rounded-xl font-bold text-sm transition transform shadow-lg hover:shadow-xl ${
+          isRolling ? 'scale-110' : 'hover:scale-105'
         } ${
           members.length === 0
-            ? 'bg-slate-100 text-slate-400 cursor-not-allowed'
-            : 'bg-blue-600 text-white hover:bg-blue-700 active:scale-95'
+            ? 'bg-slate-200 text-slate-500 cursor-not-allowed shadow-none'
+            : 'bg-gradient-to-r from-violet-500 to-purple-600 text-white hover:from-violet-600 hover:to-purple-700 active:scale-95'
         }`}
       >
-        {isRolling ? 'Rolling...' : 'Roll Dice 🎲'}
+        {isRolling ? '🎲 Rolling...' : '🎲 Roll Dice'}
       </button>
 
       {selectedMember && (
@@ -61,7 +61,7 @@ function RandomPicker({ members, onSelectSpeaker }) {
             setSelectedMember(null)
             onSelectSpeaker(null)
           }}
-          className="w-full mt-2 bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold py-2 px-4 rounded-lg transition text-sm"
+          className="w-full mt-2 bg-gradient-to-r from-slate-200 to-slate-300 hover:from-slate-300 hover:to-slate-400 text-slate-700 font-semibold py-2.5 px-4 rounded-lg transition text-sm shadow-sm"
         >
           Clear
         </button>

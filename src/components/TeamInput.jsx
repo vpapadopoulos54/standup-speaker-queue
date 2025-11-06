@@ -42,7 +42,7 @@ function TeamInput({ onAddMember, members, onRemoveMember, onUpdateTag }) {
 
   return (
     <div className="bg-white rounded-2xl shadow-md p-6 border border-slate-100">
-      <h2 className="text-lg font-semibold text-slate-900 mb-4">Team Members</h2>
+      <h2 className="text-lg font-semibold text-slate-900 mb-4">👥 Team Members</h2>
 
       <div className="space-y-2 mb-4">
         <input
@@ -51,7 +51,7 @@ function TeamInput({ onAddMember, members, onRemoveMember, onUpdateTag }) {
           onChange={(e) => setName(e.target.value)}
           onKeyPress={handleKeyPress}
           placeholder="Add member..."
-          className="w-full px-4 py-2.5 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm"
+          className="w-full px-4 py-2.5 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent text-sm"
         />
         <input
           type="text"
@@ -59,13 +59,13 @@ function TeamInput({ onAddMember, members, onRemoveMember, onUpdateTag }) {
           onChange={(e) => setTag(e.target.value)}
           onKeyPress={handleKeyPress}
           placeholder="Optional tag..."
-          className="w-full px-4 py-2.5 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm"
+          className="w-full px-4 py-2.5 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent text-sm"
         />
         <button
           onClick={handleAddMember}
-          className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2.5 px-4 rounded-lg transition text-sm"
+          className="w-full bg-gradient-to-r from-indigo-500 to-blue-600 hover:from-indigo-600 hover:to-blue-700 text-white font-bold py-2.5 px-4 rounded-lg transition transform hover:scale-105 active:scale-95 text-sm shadow-md hover:shadow-lg"
         >
-          Add
+          ➕ Add Member
         </button>
       </div>
 

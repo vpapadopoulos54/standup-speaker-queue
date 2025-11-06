@@ -43,13 +43,13 @@ function QueueDisplay({
       </div>
 
       {/* Current Speaker Card */}
-      <div className="bg-gradient-to-br from-blue-600 to-blue-700 rounded-2xl shadow-xl p-8">
-        <p className="text-blue-100 text-xs font-semibold uppercase tracking-wider mb-3">Now Speaking</p>
+      <div className="bg-gradient-to-br from-indigo-600 via-purple-600 to-pink-600 rounded-2xl shadow-2xl p-8">
+        <p className="text-indigo-100 text-xs font-semibold uppercase tracking-widest mb-3">🎙️ Now Speaking</p>
         <h2 className="text-5xl font-bold text-white mb-6">
           {currentSpeakerName ? currentSpeakerName : '—'}
         </h2>
         {currentSpeakerName && (
-          <p className="text-blue-100 text-sm mb-6 capitalize">
+          <p className="text-indigo-100 text-sm mb-8 capitalize font-medium">
             {getMemberTag(currentSpeaker)}
           </p>
         )}
@@ -57,16 +57,16 @@ function QueueDisplay({
           <button
             onClick={onNextSpeaker}
             disabled={queue.length === 0}
-            className="flex-1 bg-blue-400 hover:bg-blue-300 disabled:bg-gray-300 disabled:text-gray-500 disabled:cursor-not-allowed text-blue-900 font-semibold py-2.5 px-4 rounded-lg transition transform hover:scale-105 active:scale-95 text-sm"
+            className="flex-1 bg-gradient-to-r from-amber-400 to-orange-400 hover:from-amber-300 hover:to-orange-300 disabled:from-gray-400 disabled:to-gray-400 disabled:cursor-not-allowed text-amber-900 font-bold py-3 px-4 rounded-xl transition transform hover:scale-110 active:scale-95 text-sm shadow-lg hover:shadow-xl disabled:shadow-none"
           >
-            Next
+            🎲 Next
           </button>
           <button
             onClick={onMarkAsSpeaker}
             disabled={!currentSpeaker}
-            className="flex-1 bg-white text-blue-600 hover:bg-blue-50 disabled:bg-gray-300 disabled:text-gray-500 disabled:cursor-not-allowed font-semibold py-2.5 px-4 rounded-lg transition transform hover:scale-105 active:scale-95 text-sm"
+            className="flex-1 bg-gradient-to-r from-emerald-400 to-green-400 hover:from-emerald-300 hover:to-green-300 disabled:from-gray-400 disabled:to-gray-400 disabled:cursor-not-allowed text-emerald-900 font-bold py-3 px-4 rounded-xl transition transform hover:scale-110 active:scale-95 text-sm shadow-lg hover:shadow-xl disabled:shadow-none"
           >
-            Done
+            ✓ Done
           </button>
         </div>
       </div>
