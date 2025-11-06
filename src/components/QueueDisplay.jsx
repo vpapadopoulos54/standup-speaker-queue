@@ -3,6 +3,7 @@ function QueueDisplay({
   queue,
   spoken,
   currentSpeaker,
+  onNextSpeaker,
   onMarkAsSpeaker,
   tags,
   selectedTag,
@@ -52,13 +53,22 @@ function QueueDisplay({
             {getMemberTag(currentSpeaker)}
           </p>
         )}
-        <button
-          onClick={onMarkAsSpeaker}
-          disabled={!currentSpeaker}
-          className="w-full bg-white text-blue-600 hover:bg-blue-50 disabled:bg-gray-300 disabled:text-gray-500 disabled:cursor-not-allowed font-semibold py-3 px-4 rounded-lg transition transform hover:scale-105 active:scale-95"
-        >
-          Mark as Done
-        </button>
+        <div className="flex gap-3">
+          <button
+            onClick={onNextSpeaker}
+            disabled={queue.length === 0}
+            className="flex-1 bg-blue-400 hover:bg-blue-300 disabled:bg-gray-300 disabled:text-gray-500 disabled:cursor-not-allowed text-blue-900 font-semibold py-2.5 px-4 rounded-lg transition transform hover:scale-105 active:scale-95 text-sm"
+          >
+            Next
+          </button>
+          <button
+            onClick={onMarkAsSpeaker}
+            disabled={!currentSpeaker}
+            className="flex-1 bg-white text-blue-600 hover:bg-blue-50 disabled:bg-gray-300 disabled:text-gray-500 disabled:cursor-not-allowed font-semibold py-2.5 px-4 rounded-lg transition transform hover:scale-105 active:scale-95 text-sm"
+          >
+            Done
+          </button>
+        </div>
       </div>
 
       {/* Queue Stats */}
