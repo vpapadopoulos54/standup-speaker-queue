@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import TeamInput from './components/TeamInput'
 import Controls from './components/Controls'
+import RandomPicker from './components/RandomPicker'
 import QueueDisplay from './components/QueueDisplay'
 import './App.css'
 
@@ -117,6 +118,7 @@ function App() {
           {/* Left Column: Input and Controls */}
           <div className="lg:col-span-1 space-y-6">
             <TeamInput onAddMember={addMember} members={members} onRemoveMember={removeMember} />
+            <RandomPicker members={members} onSelectSpeaker={setCurrentSpeaker} />
             <Controls
               onShuffle={shuffle}
               onResetQueue={resetQueue}
