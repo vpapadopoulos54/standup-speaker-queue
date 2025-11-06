@@ -62,11 +62,11 @@ function App() {
     setCurrentSpeaker(null)
   }
 
-  const markAsSpeaker = () => {
+  const markAsSpeaker = (filteredQueue) => {
     if (currentSpeaker && !spoken.includes(currentSpeaker)) {
       setSpoken([...spoken, currentSpeaker])
-      // Move to next speaker in queue
-      const remaining = queue.filter(id => !spoken.includes(id) && id !== currentSpeaker)
+      // Move to next speaker in filtered queue
+      const remaining = filteredQueue.filter(id => !spoken.includes(id) && id !== currentSpeaker)
       if (remaining.length > 0) {
         setCurrentSpeaker(remaining[0])
       } else {
@@ -132,7 +132,7 @@ function App() {
               queue={filteredQueue}
               spoken={filteredSpoken}
               currentSpeaker={currentSpeaker}
-              onMarkAsSpeaker={markAsSpeaker}
+              onMarkAsSpeaker={() => markAsSpeaker(filteredQueue)}
               tags={allTags}
               selectedTag={selectedTag}
               onSelectTag={setSelectedTag}
