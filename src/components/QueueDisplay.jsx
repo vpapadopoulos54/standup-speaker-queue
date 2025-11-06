@@ -3,7 +3,6 @@ function QueueDisplay({
   queue,
   spoken,
   currentSpeaker,
-  onNextSpeaker,
   onMarkAsSpeaker,
   tags,
   selectedTag,
@@ -23,17 +22,17 @@ function QueueDisplay({
   return (
     <div className="space-y-6">
       {/* Filter Section */}
-      <div className="bg-white rounded-lg shadow-lg p-6">
-        <h3 className="text-lg font-bold text-gray-800 mb-3">Filter by Tag</h3>
+      <div className="bg-white rounded-2xl shadow-md p-6 border border-slate-100">
+        <h3 className="text-sm font-semibold text-slate-700 mb-3">Filter</h3>
         <div className="flex flex-wrap gap-2">
           {tags.map((tag) => (
             <button
               key={tag}
               onClick={() => onSelectTag(tag)}
-              className={`px-4 py-2 rounded-lg font-semibold transition ${
+              className={`px-3 py-1.5 rounded-lg font-semibold transition text-sm ${
                 selectedTag === tag
                   ? 'bg-blue-600 text-white'
-                  : 'bg-gray-200 text-gray-800 hover:bg-gray-300'
+                  : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
               }`}
             >
               {tag === 'all' ? 'All' : tag}
@@ -43,61 +42,54 @@ function QueueDisplay({
       </div>
 
       {/* Current Speaker Card */}
-      <div className="bg-gradient-to-br from-green-500 to-green-600 rounded-lg shadow-lg p-8">
-        <p className="text-green-100 text-sm font-semibold mb-2">CURRENT SPEAKER</p>
-        <h2 className="text-4xl font-bold text-white mb-6">
-          {currentSpeakerName ? `🎤 ${currentSpeakerName}` : '—'}
+      <div className="bg-gradient-to-br from-blue-600 to-blue-700 rounded-2xl shadow-xl p-8">
+        <p className="text-blue-100 text-xs font-semibold uppercase tracking-wider mb-3">Now Speaking</p>
+        <h2 className="text-5xl font-bold text-white mb-6">
+          {currentSpeakerName ? currentSpeakerName : '—'}
         </h2>
-        <p className="text-green-100 text-sm mb-4">
-          {currentSpeakerName ? `(${getMemberTag(currentSpeaker)})` : 'No one selected yet'}
-        </p>
-        <div className="flex gap-3">
-          <button
-            onClick={onNextSpeaker}
-            disabled={remaining.length === 0}
-            className="flex-1 bg-white text-green-600 hover:bg-green-50 disabled:bg-gray-400 disabled:text-gray-600 disabled:cursor-not-allowed font-bold py-3 px-4 rounded-lg transition"
-          >
-            Next Speaker
-          </button>
-          <button
-            onClick={onMarkAsSpeaker}
-            disabled={!currentSpeaker}
-            className="flex-1 bg-white text-green-600 hover:bg-green-50 disabled:bg-gray-400 disabled:text-gray-600 disabled:cursor-not-allowed font-bold py-3 px-4 rounded-lg transition"
-          >
-            ✓ Done Speaking
-          </button>
-        </div>
+        {currentSpeakerName && (
+          <p className="text-blue-100 text-sm mb-6 capitalize">
+            {getMemberTag(currentSpeaker)}
+          </p>
+        )}
+        <button
+          onClick={onMarkAsSpeaker}
+          disabled={!currentSpeaker}
+          className="w-full bg-white text-blue-600 hover:bg-blue-50 disabled:bg-gray-300 disabled:text-gray-500 disabled:cursor-not-allowed font-semibold py-3 px-4 rounded-lg transition transform hover:scale-105 active:scale-95"
+        >
+          Mark as Done
+        </button>
       </div>
 
       {/* Queue Stats */}
       <div className="grid grid-cols-2 gap-4">
-        <div className="bg-white rounded-lg shadow p-4">
-          <p className="text-gray-600 text-sm font-semibold">Spoke</p>
-          <p className="text-3xl font-bold text-gray-800">{spoken.length}</p>
+        <div className="bg-white rounded-2xl shadow-md p-5 border border-slate-100">
+          <p className="text-slate-600 text-xs font-semibold uppercase">Spoke</p>
+          <p className="text-3xl font-bold text-slate-900 mt-2">{spoken.length}</p>
         </div>
-        <div className="bg-white rounded-lg shadow p-4">
-          <p className="text-gray-600 text-sm font-semibold">Remaining</p>
-          <p className="text-3xl font-bold text-blue-600">{remaining.length}</p>
+        <div className="bg-white rounded-2xl shadow-md p-5 border border-slate-100">
+          <p className="text-slate-600 text-xs font-semibold uppercase">Remaining</p>
+          <p className="text-3xl font-bold text-blue-600 mt-2">{remaining.length}</p>
         </div>
       </div>
 
       {/* Queue Lists */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {/* Already Spoke */}
-        <div className="bg-white rounded-lg shadow-lg p-6">
-          <h3 className="text-lg font-bold text-gray-800 mb-4">✅ Already Spoke</h3>
+        <div className="bg-white rounded-2xl shadow-md p-6 border border-slate-100">
+          <h3 className="text-sm font-semibold text-slate-700 mb-4">Spoken</h3>
           {spoken.length === 0 ? (
-            <p className="text-gray-400">No one has spoken yet</p>
+            <p className="text-slate-400 text-sm">No one has spoken yet</p>
           ) : (
             <div className="space-y-2">
               {spoken.map((id, index) => (
-                <div key={id} className="flex items-center gap-3 bg-green-50 p-3 rounded-lg">
-                  <span className="flex-shrink-0 w-8 h-8 bg-green-600 text-white rounded-full flex items-center justify-center font-bold text-sm">
+                <div key={id} className="flex items-center gap-3 bg-green-50 p-3 rounded-lg border border-green-100">
+                  <span className="flex-shrink-0 w-7 h-7 bg-green-600 text-white rounded-full flex items-center justify-center font-bold text-xs">
                     {index + 1}
                   </span>
                   <div className="flex-1">
-                    <p className="font-semibold text-gray-800">{getMemberName(id)}</p>
-                    <p className="text-xs text-gray-500">{getMemberTag(id)}</p>
+                    <p className="font-semibold text-slate-800 text-sm">{getMemberName(id)}</p>
+                    <p className="text-xs text-slate-500 capitalize">{getMemberTag(id)}</p>
                   </div>
                 </div>
               ))}
@@ -106,10 +98,10 @@ function QueueDisplay({
         </div>
 
         {/* Still to Speak */}
-        <div className="bg-white rounded-lg shadow-lg p-6">
-          <h3 className="text-lg font-bold text-gray-800 mb-4">⏳ Still to Speak</h3>
+        <div className="bg-white rounded-2xl shadow-md p-6 border border-slate-100">
+          <h3 className="text-sm font-semibold text-slate-700 mb-4">Queue</h3>
           {remaining.length === 0 ? (
-            <p className="text-gray-400">
+            <p className="text-slate-400 text-sm">
               {queue.length === 0 ? 'Add team members to start' : 'Everyone has spoken!'}
             </p>
           ) : (
@@ -117,18 +109,18 @@ function QueueDisplay({
               {remaining.map((id, index) => (
                 <div
                   key={id}
-                  className={`flex items-center gap-3 p-3 rounded-lg ${
+                  className={`flex items-center gap-3 p-3 rounded-lg transition ${
                     currentSpeaker === id
-                      ? 'bg-yellow-100 border-2 border-yellow-500'
-                      : 'bg-gray-50 border border-gray-200'
+                      ? 'bg-blue-100 border-2 border-blue-500'
+                      : 'bg-slate-50 border border-slate-200'
                   }`}
                 >
-                  <span className="flex-shrink-0 w-8 h-8 bg-blue-600 text-white rounded-full flex items-center justify-center font-bold text-sm">
+                  <span className="flex-shrink-0 w-7 h-7 bg-blue-600 text-white rounded-full flex items-center justify-center font-bold text-xs">
                     {index + 1}
                   </span>
                   <div className="flex-1">
-                    <p className="font-semibold text-gray-800">{getMemberName(id)}</p>
-                    <p className="text-xs text-gray-500">{getMemberTag(id)}</p>
+                    <p className="font-semibold text-slate-800 text-sm">{getMemberName(id)}</p>
+                    <p className="text-xs text-slate-500 capitalize">{getMemberTag(id)}</p>
                   </div>
                 </div>
               ))}

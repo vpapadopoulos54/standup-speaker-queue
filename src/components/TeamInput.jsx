@@ -41,51 +41,51 @@ function TeamInput({ onAddMember, members, onRemoveMember, onUpdateTag }) {
   }
 
   return (
-    <div className="bg-white rounded-lg shadow-lg p-6">
-      <h2 className="text-2xl font-bold text-gray-800 mb-4">👥 Team Members</h2>
+    <div className="bg-white rounded-2xl shadow-md p-6 border border-slate-100">
+      <h2 className="text-lg font-semibold text-slate-900 mb-4">Team Members</h2>
 
-      <div className="space-y-3 mb-4">
+      <div className="space-y-2 mb-4">
         <input
           type="text"
           value={name}
           onChange={(e) => setName(e.target.value)}
           onKeyPress={handleKeyPress}
-          placeholder="Enter team member name..."
-          className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+          placeholder="Add member..."
+          className="w-full px-4 py-2.5 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm"
         />
         <input
           type="text"
           value={tag}
           onChange={(e) => setTag(e.target.value)}
           onKeyPress={handleKeyPress}
-          placeholder="Tag/Project (optional)"
-          className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+          placeholder="Optional tag..."
+          className="w-full px-4 py-2.5 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm"
         />
         <button
           onClick={handleAddMember}
-          className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-lg transition"
+          className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2.5 px-4 rounded-lg transition text-sm"
         >
-          Add Member
+          Add
         </button>
       </div>
 
-      <div className="border-t pt-4">
-        <h3 className="font-semibold text-gray-700 mb-3">Team List</h3>
+      <div className="border-t border-slate-200 pt-4">
+        <h3 className="font-semibold text-slate-700 mb-3 text-sm">List</h3>
         {members.length === 0 ? (
-          <p className="text-gray-400 text-sm">No team members added yet</p>
+          <p className="text-slate-400 text-sm">No members yet</p>
         ) : (
           <div className="space-y-2 max-h-96 overflow-y-auto">
             {members.map((member) => (
               <div
                 key={member.id}
-                className="flex items-center justify-between bg-gray-50 p-3 rounded-lg group hover:bg-gray-100 transition"
+                className="flex items-center justify-between bg-slate-50 p-3 rounded-lg group hover:bg-slate-100 transition"
               >
                 <div className="flex-1">
-                  <p className="font-medium text-gray-800">{member.name}</p>
+                  <p className="font-medium text-slate-800 text-sm">{member.name}</p>
                 </div>
 
                 {editingId === member.id ? (
-                  <div className="flex items-center gap-2 ml-2">
+                  <div className="flex items-center gap-1 ml-2">
                     <input
                       type="text"
                       value={editingTag}
@@ -93,17 +93,17 @@ function TeamInput({ onAddMember, members, onRemoveMember, onUpdateTag }) {
                       onKeyPress={handleEditKeyPress}
                       placeholder="Tag..."
                       autoFocus
-                      className="px-2 py-1 text-sm border border-blue-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+                      className="px-2 py-1 text-xs border border-blue-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
                     />
                     <button
                       onClick={saveTag}
-                      className="text-green-600 hover:text-green-800 font-bold text-sm"
+                      className="text-green-600 hover:text-green-800 font-bold text-xs"
                     >
                       ✓
                     </button>
                     <button
                       onClick={() => setEditingId(null)}
-                      className="text-gray-600 hover:text-gray-800 font-bold text-sm"
+                      className="text-slate-600 hover:text-slate-800 font-bold text-xs"
                     >
                       ✕
                     </button>
@@ -114,13 +114,13 @@ function TeamInput({ onAddMember, members, onRemoveMember, onUpdateTag }) {
                       onClick={() => startEditingTag(member)}
                       className="ml-2 px-2 py-1 text-xs bg-blue-100 text-blue-700 hover:bg-blue-200 rounded font-semibold transition opacity-0 group-hover:opacity-100"
                     >
-                      {member.tag === 'untagged' ? 'Add Tag' : `Tag: ${member.tag}`}
+                      {member.tag === 'untagged' ? 'Add' : member.tag}
                     </button>
                     <button
                       onClick={() => onRemoveMember(member.id)}
-                      className="ml-2 text-red-600 hover:text-red-800 text-sm font-semibold"
+                      className="ml-1 text-red-600 hover:text-red-800 text-xs font-bold"
                     >
-                      ×
+                      ✕
                     </button>
                   </>
                 )}

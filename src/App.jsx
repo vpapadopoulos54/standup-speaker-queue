@@ -62,18 +62,10 @@ function App() {
     setCurrentSpeaker(null)
   }
 
-  const nextSpeaker = () => {
-    const remaining = queue.filter(id => !spoken.includes(id))
-    if (remaining.length > 0) {
-      const nextId = remaining[0]
-      setCurrentSpeaker(nextId)
-    }
-  }
-
   const markAsSpeaker = () => {
     if (currentSpeaker && !spoken.includes(currentSpeaker)) {
       setSpoken([...spoken, currentSpeaker])
-      // Move to next speaker
+      // Move to next speaker in queue
       const remaining = queue.filter(id => !spoken.includes(id) && id !== currentSpeaker)
       if (remaining.length > 0) {
         setCurrentSpeaker(remaining[0])
@@ -113,11 +105,11 @@ function App() {
   const allTags = ['all', ...new Set(members.map(m => m.tag))]
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
-      <div className="container mx-auto px-4 py-8">
-        <header className="text-center mb-8">
-          <h1 className="text-4xl font-bold text-gray-800 mb-2">🎤 Standup Speaker Queue</h1>
-          <p className="text-gray-600">Manage your daily standup order</p>
+    <div className="min-h-screen bg-slate-50">
+      <div className="container mx-auto px-4 py-12">
+        <header className="text-center mb-12">
+          <h1 className="text-5xl font-bold text-slate-900 mb-3">Standup Queue</h1>
+          <p className="text-slate-500 text-lg">Manage your team's speaking order</p>
         </header>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
@@ -140,7 +132,6 @@ function App() {
               queue={filteredQueue}
               spoken={filteredSpoken}
               currentSpeaker={currentSpeaker}
-              onNextSpeaker={nextSpeaker}
               onMarkAsSpeaker={markAsSpeaker}
               tags={allTags}
               selectedTag={selectedTag}
@@ -149,8 +140,8 @@ function App() {
           </div>
         </div>
 
-        <footer className="text-center mt-12 text-gray-600">
-          <p>Made for distributed teams 💙</p>
+        <footer className="text-center mt-16 text-slate-400 text-sm">
+          <p>Standup Queue</p>
         </footer>
       </div>
     </div>
