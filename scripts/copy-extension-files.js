@@ -12,6 +12,13 @@ const manifestDest = path.join(projectRoot, 'dist', 'manifest.json');
 fs.copyFileSync(manifestSrc, manifestDest);
 console.log('✓ Copied manifest.json to dist/');
 
+// Copy error-handler.js
+const errorHandlerSrc = path.join(projectRoot, 'public', 'error-handler.js');
+const errorHandlerDest = path.join(projectRoot, 'dist', 'error-handler.js');
+
+fs.copyFileSync(errorHandlerSrc, errorHandlerDest);
+console.log('✓ Copied error-handler.js to dist/');
+
 // Find the actual built JS file
 const assetsDir = path.join(projectRoot, 'dist', 'assets');
 const jsFiles = fs.readdirSync(assetsDir).filter(f => f.startsWith('index-') && f.endsWith('.js'));
