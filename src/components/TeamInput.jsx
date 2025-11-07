@@ -5,6 +5,7 @@ function TeamInput({ onAddMember, members, onRemoveMember, onUpdateTag }) {
   const [tag, setTag] = useState('')
   const [editingId, setEditingId] = useState(null)
   const [editingTag, setEditingTag] = useState('')
+  const [isListCollapsed, setIsListCollapsed] = useState(false)
 
   const handleAddMember = () => {
     onAddMember(name, tag)
@@ -70,10 +71,22 @@ function TeamInput({ onAddMember, members, onRemoveMember, onUpdateTag }) {
       </div>
 
       <div className="border-t border-slate-200 pt-4">
-        <h3 className="font-semibold text-slate-700 mb-3 text-sm">List</h3>
+        <div className="flex items-center justify-between mb-3">
+          <h3 className="font-semibold text-slate-700 text-sm">
+            List ({members.length})
+          </h3>
+          {members.length > 0 && (
+            <button
+              onClick={() => setIsListCollapsed(!isListCollapsed)}
+              className="text-slate-500 hover:text-slate-700 transition"
+            >
+              {isListCollapsed ? '▶' : '▼'}
+            </button>
+          )}
+        </div>
         {members.length === 0 ? (
           <p className="text-slate-400 text-sm">No members yet</p>
-        ) : (
+        ) : !isListCollapsed ? (
           <div className="space-y-2 max-h-96 overflow-y-auto">
             {members.map((member) => (
               <div
@@ -127,6 +140,10 @@ function TeamInput({ onAddMember, members, onRemoveMember, onUpdateTag }) {
               </div>
             ))}
           </div>
+        ) : (
+          <p className="text-slate-400 text-sm">
+            {members.length} member{members.length !== 1 ? 's' : ''} (collapsed)
+          </p>
         )}
       </div>
     </div>
