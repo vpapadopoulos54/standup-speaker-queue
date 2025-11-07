@@ -89,7 +89,7 @@ function QueueDisplay({
       <div className="pulse-ring bg-gradient-to-br from-violet-600 via-purple-600 to-fuchsia-600 rounded-3xl shadow-2xl p-8 border-2 border-purple-300 relative">
         <div className="shine-effect rounded-2xl">
           <p className="text-white text-xs font-black uppercase tracking-widest mb-2 animate-pulse">
-            🎙️ LIVE - NOW SPEAKING
+            🎙️ NOW SPEAKING
           </p>
           <h2 className="text-6xl font-black text-white mb-2 drop-shadow-lg">
             {currentSpeakerName ? currentSpeakerName : 'WAITING...'}
