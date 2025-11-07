@@ -42,29 +42,84 @@ function QueueDisplay({
         </div>
       </div>
 
-      {/* Current Speaker Card */}
-      <div className="bg-gradient-to-br from-indigo-600 via-purple-600 to-pink-600 rounded-2xl shadow-2xl p-8">
-        <p className="text-indigo-100 text-xs font-semibold uppercase tracking-widest mb-3">🎙️ Now Speaking</p>
-        <h2 className="text-5xl font-bold text-white mb-6">
-          {currentSpeakerName ? currentSpeakerName : '—'}
-        </h2>
-        {currentSpeakerName && (
-          <p className="text-indigo-100 text-sm mb-8 capitalize font-medium">
-            {getMemberTag(currentSpeaker)}
+      {/* Current Speaker Card - PROMINENT */}
+      <style>{`
+        @keyframes pulse-ring {
+          0% {
+            box-shadow: 0 0 0 0 rgba(139, 92, 246, 0.7);
+          }
+          50% {
+            box-shadow: 0 0 0 10px rgba(139, 92, 246, 0);
+          }
+          100% {
+            box-shadow: 0 0 0 0 rgba(139, 92, 246, 0);
+          }
+        }
+
+        @keyframes slide-shine {
+          0% {
+            transform: translateX(-100%);
+          }
+          100% {
+            transform: translateX(100%);
+          }
+        }
+
+        .pulse-ring {
+          animation: pulse-ring 2s infinite;
+        }
+
+        .shine-effect {
+          position: relative;
+          overflow: hidden;
+        }
+
+        .shine-effect::after {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+          animation: slide-shine 3s infinite;
+        }
+      `}</style>
+
+      <div className="pulse-ring bg-gradient-to-br from-violet-600 via-purple-600 to-fuchsia-600 rounded-3xl shadow-2xl p-8 border-2 border-purple-300 relative">
+        <div className="shine-effect rounded-2xl">
+          <p className="text-white text-xs font-black uppercase tracking-widest mb-2 animate-pulse">
+            🎙️ LIVE - NOW SPEAKING
           </p>
-        )}
+          <h2 className="text-6xl font-black text-white mb-2 drop-shadow-lg">
+            {currentSpeakerName ? currentSpeakerName : 'WAITING...'}
+          </h2>
+          {currentSpeakerName && (
+            <>
+              <p className="text-purple-100 text-sm mb-6 capitalize font-bold">
+                📍 {getMemberTag(currentSpeaker)}
+              </p>
+              <div className="bg-white bg-opacity-20 backdrop-blur-sm rounded-xl p-3 mb-6 border border-purple-200">
+                <p className="text-white text-xs font-semibold text-center">
+                  ✨ This is who's speaking right now! Keep time and pay attention ✨
+                </p>
+              </div>
+            </>
+          )}
+        </div>
+
         <div className="flex gap-3">
           <button
             onClick={onNextSpeaker}
             disabled={queue.length === 0}
-            className="flex-1 bg-gradient-to-r from-amber-400 to-orange-400 hover:from-amber-300 hover:to-orange-300 disabled:from-gray-400 disabled:to-gray-400 disabled:cursor-not-allowed text-amber-900 font-bold py-3 px-4 rounded-xl transition transform hover:scale-110 active:scale-95 text-sm shadow-lg hover:shadow-xl disabled:shadow-none"
+            className="flex-1 bg-gradient-to-r from-amber-400 to-orange-500 hover:from-amber-300 hover:to-orange-400 disabled:from-gray-400 disabled:to-gray-400 disabled:cursor-not-allowed text-amber-950 font-black py-3.5 px-4 rounded-xl transition transform hover:scale-110 active:scale-95 text-sm shadow-2xl hover:shadow-3xl disabled:shadow-none border-2 border-amber-600"
           >
             🎲 Next
           </button>
           <button
             onClick={onMarkAsSpeaker}
             disabled={!currentSpeaker}
-            className="flex-1 bg-gradient-to-r from-emerald-400 to-green-400 hover:from-emerald-300 hover:to-green-300 disabled:from-gray-400 disabled:to-gray-400 disabled:cursor-not-allowed text-emerald-900 font-bold py-3 px-4 rounded-xl transition transform hover:scale-110 active:scale-95 text-sm shadow-lg hover:shadow-xl disabled:shadow-none"
+            className="flex-1 bg-gradient-to-r from-emerald-400 to-green-500 hover:from-emerald-300 hover:to-green-400 disabled:from-gray-400 disabled:to-gray-400 disabled:cursor-not-allowed text-emerald-950 font-black py-3.5 px-4 rounded-xl transition transform hover:scale-110 active:scale-95 text-sm shadow-2xl hover:shadow-3xl disabled:shadow-none border-2 border-emerald-600"
           >
             ✓ Done
           </button>
