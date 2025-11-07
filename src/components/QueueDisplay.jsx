@@ -95,16 +95,9 @@ function QueueDisplay({
             {currentSpeakerName ? currentSpeakerName : 'WAITING...'}
           </h2>
           {currentSpeakerName && (
-            <>
-              <p className="text-purple-100 text-sm mb-6 capitalize font-bold">
-                📍 {getMemberTag(currentSpeaker)}
-              </p>
-              <div className="bg-white bg-opacity-20 backdrop-blur-sm rounded-xl p-3 mb-6 border border-purple-200">
-                <p className="text-white text-xs font-semibold text-center">
-                  ✨ This is who's speaking right now! Keep time and pay attention ✨
-                </p>
-              </div>
-            </>
+            <p className="text-purple-100 text-sm mt-3 capitalize font-bold">
+              📍 {getMemberTag(currentSpeaker)}
+            </p>
           )}
         </div>
 
