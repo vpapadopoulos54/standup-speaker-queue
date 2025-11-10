@@ -5,6 +5,7 @@ function QueueDisplay({
   currentSpeaker,
   onNextSpeaker,
   onMarkAsSpeaker,
+  onSelectSpeaker,
   tags,
   selectedTag,
   onSelectTag,
@@ -180,6 +181,12 @@ function QueueDisplay({
                     <p className="font-semibold text-slate-800 text-sm">{getMemberName(id)}</p>
                     <p className="text-xs text-slate-500 capitalize">{getMemberTag(id)}</p>
                   </div>
+                  <button
+                    onClick={() => onSelectSpeaker(id)}
+                    className="flex-shrink-0 px-2.5 py-1.5 bg-blue-600 hover:bg-blue-700 text-white text-xs font-semibold rounded-lg transition transform hover:scale-110 active:scale-95"
+                  >
+                    Select
+                  </button>
                 </div>
               ))}
             </div>

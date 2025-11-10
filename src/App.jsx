@@ -141,6 +141,7 @@ function App() {
               currentSpeaker={currentSpeaker}
               onNextSpeaker={() => nextSpeaker(filteredQueue)}
               onMarkAsSpeaker={() => markAsSpeaker(filteredQueue)}
+              onSelectSpeaker={setCurrentSpeaker}
               tags={allTags}
               selectedTag={selectedTag}
               onSelectTag={setSelectedTag}
