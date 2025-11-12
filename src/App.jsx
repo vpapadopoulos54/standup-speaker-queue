@@ -18,6 +18,7 @@ function App() {
     const savedQueue = localStorage.getItem('standupQueue')
     const savedSpoken = localStorage.getItem('standupSpoken')
     const savedCurrentSpeaker = localStorage.getItem('standupCurrentSpeaker')
+    const savedSelectedTag = localStorage.getItem('standupSelectedTag')
 
     if (savedMembers) {
       const parsedMembers = JSON.parse(savedMembers)
@@ -25,6 +26,7 @@ function App() {
       setQueue(savedQueue ? JSON.parse(savedQueue) : parsedMembers.map(m => m.id))
       setSpoken(savedSpoken ? JSON.parse(savedSpoken) : [])
       setCurrentSpeaker(savedCurrentSpeaker ? JSON.parse(savedCurrentSpeaker) : null)
+      setSelectedTag(savedSelectedTag ? JSON.parse(savedSelectedTag) : 'all')
     }
   }, [])
 
@@ -47,6 +49,11 @@ function App() {
   useEffect(() => {
     localStorage.setItem('standupCurrentSpeaker', JSON.stringify(currentSpeaker))
   }, [currentSpeaker])
+
+  // Save selected tag to localStorage whenever it changes
+  useEffect(() => {
+    localStorage.setItem('standupSelectedTag', JSON.stringify(selectedTag))
+  }, [selectedTag])
 
   const addMember = (name, tag) => {
     if (name.trim()) {
