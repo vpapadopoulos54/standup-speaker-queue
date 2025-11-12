@@ -14,11 +14,17 @@ function App() {
 
   // Load from localStorage on mount
   useEffect(() => {
-    const saved = localStorage.getItem('standupMembers')
-    if (saved) {
-      const parsedMembers = JSON.parse(saved)
+    const savedMembers = localStorage.getItem('standupMembers')
+    const savedQueue = localStorage.getItem('standupQueue')
+    const savedSpoken = localStorage.getItem('standupSpoken')
+    const savedCurrentSpeaker = localStorage.getItem('standupCurrentSpeaker')
+
+    if (savedMembers) {
+      const parsedMembers = JSON.parse(savedMembers)
       setMembers(parsedMembers)
-      setQueue(parsedMembers.map(m => m.id))
+      setQueue(savedQueue ? JSON.parse(savedQueue) : parsedMembers.map(m => m.id))
+      setSpoken(savedSpoken ? JSON.parse(savedSpoken) : [])
+      setCurrentSpeaker(savedCurrentSpeaker ? JSON.parse(savedCurrentSpeaker) : null)
     }
   }, [])
 
@@ -26,6 +32,21 @@ function App() {
   useEffect(() => {
     localStorage.setItem('standupMembers', JSON.stringify(members))
   }, [members])
+
+  // Save queue state to localStorage whenever it changes
+  useEffect(() => {
+    localStorage.setItem('standupQueue', JSON.stringify(queue))
+  }, [queue])
+
+  // Save spoken state to localStorage whenever it changes
+  useEffect(() => {
+    localStorage.setItem('standupSpoken', JSON.stringify(spoken))
+  }, [spoken])
+
+  // Save current speaker to localStorage whenever it changes
+  useEffect(() => {
+    localStorage.setItem('standupCurrentSpeaker', JSON.stringify(currentSpeaker))
+  }, [currentSpeaker])
 
   const addMember = (name, tag) => {
     if (name.trim()) {
